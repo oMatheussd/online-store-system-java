@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
-	
+
 	private long id;
 	private LocalDate moment;
 	private OrderStatus status;
 	private Custumer custumer;
-	
+
 	private List<OrderItem> itens = new ArrayList<>();
 
 	public Order(long id, Custumer custumer) {
@@ -54,5 +54,40 @@ public class Order {
 
 	public List<OrderItem> getItens() {
 		return itens;
+	}
+
+	public void addItem(OrderItem item) {
+		itens.add(item);
+	}
+
+	public void removeItem(OrderItem item) {
+		itens.remove(item);
+	}
+
+	public double calculateSubtotal() {
+		double total = 0;
+		
+		for (OrderItem i : itens) {
+			total += i.subtotal();
+		}
+		return total;
+	}
+	
+	public double total() {
+		double discountPercentage = 0.0;
+		double discount = calculateSubtotal() * discountPercentage;
+		
+		if (calculateSubtotal() > 500.00 && calculateSubtotal() <= 1500.00) {
+			discountPercentage = 0.05;
+		}
+		if (calculateSubtotal() > 1500.00) {
+			discountPercentage = 0.1;
+		}
+		
+		return calculateSubtotal() - discount;
+	}
+	
+	public void changeStatus(Order order, OrderStatus status) {
+		order.setStatus(status);
 	}
 }
