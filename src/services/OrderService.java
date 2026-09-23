@@ -12,4 +12,8 @@ public class OrderService {
 	public List<Order> getOrders() {
 		return orders;
 	}
+	
+	public void addOrder(Order order) {
+		orders.add(order);
+	}
 }
