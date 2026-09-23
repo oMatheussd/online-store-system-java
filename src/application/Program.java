@@ -3,7 +3,7 @@ package application;
 import java.util.Locale;
 import java.util.Scanner;
 
-import entities.Custumer;
+import entities.Customer;
 import entities.Order;
 import entities.OrderItem;
 import entities.OrderStatus;
@@ -30,7 +30,7 @@ public class Program {
 			System.out.print("Phone: ");
 			String phone = sc.nextLine();
 
-			Custumer c1 = new Custumer(name, email, phone);
+			Customer c1 = new Customer(name, email, phone);
 
 			System.out.println();
 			System.out.println("Enter order data:");
@@ -62,9 +62,14 @@ public class Program {
 			}
 
 			os.addOrder(o1);
-			o1.changeStatus(OrderStatus.PAID);
-			o1.changeStatus(OrderStatus.SHIPPED);
-			o1.changeStatus(OrderStatus.DELIVERED);
+			o1.setStatus(OrderStatus.PAID);
+			o1.setStatus(OrderStatus.SHIPPED);
+			o1.setStatus(OrderStatus.DELIVERED);
+			
+			System.out.println();
+			for (Order o : os.getOrders()) {
+				System.out.println(o);
+			}
 
 		} catch (OrderException e) {
 			System.out.println(e.getMessage());
