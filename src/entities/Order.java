@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import services.OrderException;
+
 public class Order {
 
 	private long id;
@@ -57,6 +59,14 @@ public class Order {
 	}
 
 	public void addItem(OrderItem item) {
+		if(item.getQuantity() < 1) {
+			throw new OrderException("The quantity of an item must be greater than zero.");
+		}
+		
+		if(item.getPrice() < 0.0) {
+			throw new OrderException("The price of a product cannot be negative.");
+		}
+		
 		itens.add(item);
 	}
 
@@ -87,7 +97,7 @@ public class Order {
 		return calculateSubtotal() - discount;
 	}
 	
-	public void changeStatus(Order order, OrderStatus status) {
-		order.setStatus(status);
+	public void changeStatus(OrderStatus status) {
+		this.setStatus(status);
 	}
 }

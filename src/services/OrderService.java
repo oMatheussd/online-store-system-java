@@ -14,6 +14,9 @@ public class OrderService {
 	}
 	
 	public void addOrder(Order order) {
+		if(order.getItens().size() == 0) {
+			throw new OrderException("An order cannot be finalized without at least one item.");
+		}
 		orders.add(order);
 	}
 }
